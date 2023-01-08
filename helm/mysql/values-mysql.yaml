@@ -1,0 +1,21 @@
+# Use existing secret for DB root and user passwords
+existingSecret: mysql-secret
+
+# Create a database user
+#
+mysqlUser: app-user
+
+# Create a database
+#
+mysqlDatabase: my-database
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 512Mi
+    cpu: 250m

@@ -1,0 +1,25 @@
+auth:
+  existingSecret: mysql-secret
+  username: app-user
+  database: app-db
+
+architecture: replication
+
+primary:
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 250m
+    requests:
+      memory: 256Mi
+      cpu: 100m
+
+secondary:
+  replicaCount: 2
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 250m
+    requests:
+      memory: 256Mi
+      cpu: 100m
