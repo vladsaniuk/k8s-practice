@@ -34,3 +34,12 @@ export DB_PWD=app-psw-12345
 export DB_NAME=my-db
 export DB_ROOT_PASSWORD=12345
 ```
+
+Generate DockerHub secret config file:
+```
+kubectl create secret docker-registry docker-hub \
+--docker-username=<username> \
+--docker-password=<password> \
+--dry-run=client \
+-o yaml
+```
