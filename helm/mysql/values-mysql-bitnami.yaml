@@ -6,6 +6,9 @@ auth:
 architecture: replication
 
 primary:
+  persistence:
+    size: 2Gi
+    enabled: false
   resources:
     limits:
       memory: 512Mi
@@ -15,7 +18,10 @@ primary:
       cpu: 100m
 
 secondary:
-  replicaCount: 2
+  persistence:
+    size: 2Gi
+    enabled: false
+  replicaCount: 1
   resources:
     limits:
       memory: 512Mi
