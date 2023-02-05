@@ -12,7 +12,7 @@ pipeline {
         stage('Build app') {
             when {
                 expression {
-                    BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'master'
                 }
             }
             steps {
@@ -35,7 +35,7 @@ pipeline {
         stage('Login to registry') {
             when {
                 expression {
-                    BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'master'
                 }
             }
             steps {
@@ -50,7 +50,7 @@ pipeline {
         stage('Build image') {
             when {
                 expression {
-                    BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'master'
                 }
             }
             steps {
@@ -63,7 +63,7 @@ pipeline {
         stage('Push to registry') {
             when {
                 expression {
-                    BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'master'
                 }
             }
             steps {
