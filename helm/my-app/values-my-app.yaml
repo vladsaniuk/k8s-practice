@@ -1,5 +1,5 @@
 appName: my-app
-image: vladsanyuk/java-app:1.0 
+image: vladsanyuk/java-app:${APP_VERSION} 
 replicasCount: 3
 containerPort: 8080
 servicePort: 8080
