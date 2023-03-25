@@ -44,9 +44,16 @@ kubectl create secret docker-registry docker-hub \
 -o yaml
 ```
 
+Secret in k8s folder is purely illustrative.
+
+Install mySQL:
+```
 helm install -f helm/mysql/values-mysql-bitnami.yaml mysql-release bitnami/mysql -n my-app
 helm uninstall mysql-release -n my-app
+```
 
-helm install -f helm/my-app/values-my-app.yaml my-app-release ./helm/my-app/my-app -n my-app
+Install app:
+`helm install -f helm/my-app/values-my-app.yaml my-app-release ./helm/my-app/my-app -n my-app`
 
-helm install my-nginx-ingress ingress-nginx/ingress-nginx --set controller.publishService.enabled=true
+Install ingress:
+`helm install my-nginx-ingress ingress-nginx/ingress-nginx --set controller.publishService.enabled=true`

@@ -21,8 +21,7 @@ services:
     links:
       - "mysql-db:db"
   app:
-    image: 0.0.0.0:8083/java-app:1.0
-    build: .
+    image: vladsanyuk/java-app:1675628911-5
     ports:
       - 8080:8080
     environment:

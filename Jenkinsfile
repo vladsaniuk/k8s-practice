@@ -1,7 +1,16 @@
 pipeline {
     agent any
     parameters {
-      string(name: "CLUSTER_NAME", defaultValue: "my-eks-cluster", description: "EKS cluster name")
+      string(name: "ENV", defaultValue: "dev", description: "Env name")
+    }
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        timestamps()
+        if BRANCH_NAME == 'master' && params.ENV == 'prod' {
+            buildDiscarder(logRotator(artifactDaysToKeepStr: '30', artifactNumToKeepStr: '10', daysToKeepStr: '30', numToKeepStr: '30'))
+        } else {
+            buildDiscarder(logRotator(artifactDaysToKeepStr: '5', artifactNumToKeepStr: '2', daysToKeepStr: '5', numToKeepStr: '10'))
+        }
     }
     environment {
         TIMESTAMP = sh (
@@ -94,7 +103,7 @@ pipeline {
             steps {
                 script {
                     echo "Getting kubeconfig"
-                    sh "aws eks update-kubeconfig --region us-east-1 --name ${params.CLUSTER_NAME}"
+                    sh "aws eks update-kubeconfig --region us-east-1 --name ${params.ENV}-eks-cluster"
                 }
             }
         }
