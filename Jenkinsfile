@@ -1,7 +1,8 @@
+/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth */
 pipeline {
     agent any
     parameters {
-      string(name: "ENV", defaultValue: "dev", description: "Env name")
+        string(name: 'ENV', defaultValue: 'dev', description: 'Env name')
     }
     options {
         timeout(time: 30, unit: 'MINUTES')
@@ -14,7 +15,7 @@ pipeline {
             ))
     }
     environment {
-        TIMESTAMP = sh (
+        TIMESTAMP = sh(
         script: 'date +%s',
         returnStdout: true
         ).trim()
@@ -31,14 +32,14 @@ pipeline {
                 }
             }
             steps {
-                    echo "Building app"
+                    echo 'Building app'
                     sh './gradlew build'
             }
         }
 
         stage('Test app') {
             steps {
-                echo "Running tests"
+                echo 'Running tests'
                 sh './gradlew test'
             }
 
@@ -57,7 +58,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Logging into Docker Hub"
+                    echo 'Logging into Docker Hub'
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                     }
@@ -73,7 +74,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Building container image"
+                    echo 'Building container image'
                     sh "docker build -t vladsanyuk/java-app:${APP_VERSION} ."
                 }
             }
@@ -87,9 +88,9 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Pushing image to registry"
+                    echo 'Pushing image to registry'
                     sh "docker push vladsanyuk/java-app:${APP_VERSION}"
-                    echo "Clean-up image"
+                    echo 'Clean-up image'
                     sh "docker rmi vladsanyuk/java-app:${APP_VERSION}"
                 }
             }
@@ -103,7 +104,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Getting kubeconfig"
+                    echo 'Getting kubeconfig'
                     sh "aws eks update-kubeconfig --region us-east-1 --name ${params.ENV}-eks-cluster"
                 }
             }
@@ -117,10 +118,10 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Deploying app"
-                    sh "envsubst < helm/my-app/values-my-app.yaml | helm upgrade -f helm/my-app/values-my-app.yaml my-app-release ./helm/my-app/my-app -n my-app --install --create-namespace"
-                    echo "Deploying DB"
-                    sh "helm upgrade -f helm/mysql/values-mysql-bitnami.yaml mysql-release bitnami/mysql -n my-app --install --create-namespace"
+                    echo 'Deploying app'
+                    sh 'envsubst < helm/my-app/values-my-app.yaml | helm upgrade -f helm/my-app/values-my-app.yaml my-app-release ./helm/my-app/my-app -n my-app --install --create-namespace'
+                    echo 'Deploying DB'
+                    sh 'helm upgrade -f helm/mysql/values-mysql-bitnami.yaml mysql-release bitnami/mysql -n my-app --install --create-namespace'
                 }
             }
         }
