@@ -121,6 +121,7 @@ pipeline {
                     echo 'Deploying app'
                     sh 'envsubst < helm/my-app/values-my-app.yaml | helm upgrade -f helm/my-app/values-my-app.yaml my-app-release ./helm/my-app/my-app -n my-app --install --create-namespace'
                     echo 'Deploying DB'
+                    sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
                     sh 'helm upgrade -f helm/mysql/values-mysql-bitnami.yaml mysql-release bitnami/mysql -n my-app --install --create-namespace'
                 }
             }
