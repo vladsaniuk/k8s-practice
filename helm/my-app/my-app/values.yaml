@@ -9,4 +9,3 @@ containerEnvs:
   - name: DB_USER
     value: app-user
 dbUser: app-user
-loadBalancerHost: ""

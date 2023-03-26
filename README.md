@@ -44,7 +44,7 @@ kubectl create secret docker-registry docker-hub \
 -o yaml
 ```
 
-Secret in k8s folder is purely illustrative.
+For DB to deploy secret and configmap needed, illustrative examples are in k8s folder.
 
 Install mySQL:
 ```
