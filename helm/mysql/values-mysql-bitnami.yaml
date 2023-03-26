@@ -6,6 +6,12 @@ auth:
 architecture: replication
 
 primary:
+  startupProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
   persistence:
     size: 2Gi
     enabled: false
@@ -18,6 +24,12 @@ primary:
       cpu: 100m
 
 secondary:
+  startupProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
   persistence:
     size: 2Gi
     enabled: false
